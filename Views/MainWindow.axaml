@@ -1,0 +1,70 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:NOTATerminal.ViewModels"
+        xmlns:v="using:NOTATerminal.Views"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:aedit="clr-namespace:AvaloniaEdit;assembly=AvaloniaEdit"
+		xmlns:bh="using:NOTATerminal.Behaviors"
+		xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
+        mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="1000"
+        x:Class="NOTATerminal.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+	    WindowStartupLocation="CenterScreen"
+		ExtendClientAreaToDecorationsHint="True"
+		ExtendClientAreaTitleBarHeightHint="-1"
+		Title="NOTATerminal"
+		Background="#1A1A1A"
+		Topmost="{Binding IsPinnedWindow}"
+		>
+	<Border BorderThickness="1.5" BorderBrush="#D2B1A38E" IsVisible="True">
+	<Grid RowDefinitions="0,50,*" ColumnDefinitions="*">
+		<Label Margin="5,5,5,0" Grid.Row="1" BorderBrush="Wheat">TableJson</Label>
+		<StackPanel Grid.Row="1" Margin="10,22,10,0" Orientation="Horizontal">
+			<Button Content="New Terminal" Classes="Ribbon" Background="#F92684D7" Click="CreateTerminal_Clicked" HotKey="Ctrl+O"/>
+			<!--<Button Content="Save" Classes="Ribbon" Background="#FD429118" Click="" HotKey="Ctrl+S"/>-->
+			<Button Content="Scripts" Classes="Ribbon" Background="#D1CB1DD9" Click="MacrosOpenWindow_Clicked" HotKey="Ctrl+Q"/>
+			<!--<Label Margin="15,15,5,0" BorderBrush="Wheat">Font Size</Label>-->
+			<!--<ComboBox ItemsSource="{Binding EditorFontSizes}"  Height="30" Width="70" Margin="0,10,0,0"></ComboBox>-->
+			<ToggleButton Margin="170,10,10,10" IsChecked="{Binding IsPinnedWindow, Mode = TwoWay}" IsDefault="False" Width="95" Height="30" Classes="Pin"/>
+		</StackPanel>
+		<TabControl Grid.Row="2" x:Name="HighestMultiTab">
+			<!--ItemsSource="{Binding Tabs}"-->
+			<TabControl.Template>
+				<ControlTemplate>
+					<Grid RowDefinitions="50,*">			
+							<ScrollViewer Classes="TabScroll" Name="TabScroller" Grid.Row="0"
+                                  HorizontalScrollBarVisibility="Auto"
+                                  VerticalScrollBarVisibility="Hidden" >
+							<ItemsPresenter Name="PART_ItemsPresenter">
+								<ItemsPresenter.ItemsPanel>
+									<ItemsPanelTemplate>
+										<StackPanel Orientation="Horizontal">				
+										</StackPanel>
+									</ItemsPanelTemplate>
+								</ItemsPresenter.ItemsPanel>
+							</ItemsPresenter>
+						</ScrollViewer>
+						<Border Grid.Row="1">
+							<ContentPresenter Name="PART_SelectedContentHost"
+											  Content="{Binding SelectedContent, RelativeSource={RelativeSource TemplatedParent}}"
+											  Margin="10"/>
+						</Border>
+					</Grid>
+				</ControlTemplate>
+			</TabControl.Template>
+			<TabControl.ItemContainerTheme>
+				<ControlTheme TargetType="TabItem" BasedOn="{StaticResource {x:Type TabItem}}" x:DataType="vm:TabWindowViewModel">
+					<Setter Property="Header" Value="1"/>
+					<Setter Property="ContentTemplate">
+						<DataTemplate>
+							<v:TabWindow DataContext="vm:TabWindowViewModel"/>
+						</DataTemplate>
+					</Setter>
+				</ControlTheme>
+			</TabControl.ItemContainerTheme>
+		</TabControl>
+	</Grid>
+	</Border>
+</Window>
