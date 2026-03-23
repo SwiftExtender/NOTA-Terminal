@@ -8,20 +8,12 @@ using NOTATerminal.ViewModels;
 
 namespace NOTATerminal.Views
 {
-    public partial class TabWindow : UserControl
+    public partial class GridTerminal : UserControl
     {
-        public TabWindow()
+        public GridTerminal()
         {
             InitializeComponent();
-            DataContext = new TabWindowViewModel();
-            //RowTip.Text = "-";
-            //ColumnTip.Text = "-";
-            //AddHandler(PointerWheelChangedEvent, MouseWheelFontSizer, RoutingStrategies.Tunnel, true);
-            //AddHandler(KeyDownEvent, KeyboardFontSizer, RoutingStrategies.Tunnel, true);
-            //var fm = TextEditingControl.TextArea.TextView.GetService(typeof(FoldingManager)) as FoldingManager;
-            //if (fm != null) {
-            //    FoldingManager.Uninstall(fm);
-            //}
+            DataContext = new GridTerminalViewModel();
         }
         private void MouseWheelFontSizer(object? sender, PointerWheelEventArgs e)
         {
@@ -44,10 +36,5 @@ namespace NOTATerminal.Views
                 }
             }
         }
-        //private void CaretPositionChanged(object sender, EventArgs e)
-        //{
-        //    RowTip.Text = TextEditingControl.TextArea.Caret.Line.ToString();
-        //    ColumnTip.Text = TextEditingControl.TextArea.Caret.Column.ToString();
-        //}
     }
 }

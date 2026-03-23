@@ -60,7 +60,7 @@ namespace NOTATerminal.ViewModels
         public string ItemColor { get; set; }
         public string TextColor { get; set; }
     }
-    public class TabWindowViewModel : ViewModelBase
+    public class GridTerminalViewModel : ViewModelBase
     {
         public void CopyMouseCommand(TextArea textArea)
         {
@@ -268,11 +268,11 @@ namespace NOTATerminal.ViewModels
             return new ObservableCollection<MacrosMenuItem>(menuItems);
         }
 
-        public TabWindowViewModel()
+        public GridTerminalViewModel()
         {
             MacrosContextMenu = PopulateMacroMenu();
         }
-        public TabWindowViewModel(IStorageFile file)
+        public GridTerminalViewModel(IStorageFile file)
         {
             LoadFileAsync(file.TryGetLocalPath());
             FileFullPath = file.TryGetLocalPath();

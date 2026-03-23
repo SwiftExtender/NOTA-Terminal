@@ -22,7 +22,8 @@
 	<Grid RowDefinitions="0,50,*" ColumnDefinitions="*">
 		<Label Margin="5,5,5,0" Grid.Row="1" BorderBrush="Wheat">TableJson</Label>
 		<StackPanel Grid.Row="1" Margin="10,22,10,0" Orientation="Horizontal">
-			<Button Content="New Terminal" Classes="Ribbon" Background="#F92684D7" Click="CreateTerminal_Clicked" HotKey="Ctrl+O"/>
+			<Button Content="New Terminal" Classes="Ribbon" Background="#F92684D7" Click="AddTabClick" HotKey="Ctrl+O"/>
+			<Button Content="New GridTerminal" Classes="Ribbon" Background="#F92684D7" Click="AddTabClick" HotKey="Ctrl+O+1"/>
 			<!--<Button Content="Save" Classes="Ribbon" Background="#FD429118" Click="" HotKey="Ctrl+S"/>-->
 			<Button Content="Scripts" Classes="Ribbon" Background="#D1CB1DD9" Click="MacrosOpenWindow_Clicked" HotKey="Ctrl+Q"/>
 			<!--<Label Margin="15,15,5,0" BorderBrush="Wheat">Font Size</Label>-->
@@ -55,11 +56,11 @@
 				</ControlTemplate>
 			</TabControl.Template>
 			<TabControl.ItemContainerTheme>
-				<ControlTheme TargetType="TabItem" BasedOn="{StaticResource {x:Type TabItem}}" x:DataType="vm:TabWindowViewModel">
+				<ControlTheme TargetType="TabItem" BasedOn="{StaticResource {x:Type TabItem}}" x:DataType="vm:GridTerminalViewModel">
 					<Setter Property="Header" Value="1"/>
 					<Setter Property="ContentTemplate">
 						<DataTemplate>
-							<v:TabWindow DataContext="vm:TabWindowViewModel"/>
+							<v:GridTerminal DataContext="vm:GridTerminalViewModel"/>
 						</DataTemplate>
 					</Setter>
 				</ControlTheme>
