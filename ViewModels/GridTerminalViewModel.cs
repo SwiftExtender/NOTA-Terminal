@@ -1,10 +1,10 @@
 ﻿using Avalonia.Input;
-using Avalonia.Controls;
 using Avalonia.Platform.Storage;
 using Avalonia.Threading;
 using AvaloniaEdit;
 using AvaloniaEdit.Document;
 using AvaloniaEdit.Editing;
+using NOTATerminal.Models;
 using ReactiveUI;
 using System;
 using System.Collections.Generic;
@@ -12,45 +12,14 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using NOTATerminal.Models;
-using Avalonia.Media;
 
 namespace NOTATerminal.ViewModels
 {
-    //public class ContextCommand<T> : ICommand
-    //{
-    //    private readonly Action<T> _execute;
-    //    private readonly Predicate<T> _canExecute;
-    //    private event EventHandler? _canExecuteChanged;
-
-    //    public ContextCommand(Action<T> execute, Predicate<T> canExecute)
-    //    {
-    //        _execute = execute ?? throw new ArgumentNullException(nameof(execute));
-    //        _canExecute = canExecute;
-    //    }
-    //    public event EventHandler? CanExecuteChanged
-    //    {
-    //        add => _canExecuteChanged += value;
-    //        remove => _canExecuteChanged -= value;
-    //    }
-    //    public bool CanExecute(object? parameter)
-    //    {
-    //        if (parameter == null)
-    //        {
-    //            return true;
-    //        }
-    //        return _canExecute((T)parameter);
-    //    }
-    //    public void Execute(object? parameter)
-    //    {
-    //        _execute((T)parameter);
-    //    }
-    //}
     public class MacrosMenuItem()
     {
         public string Header { get; set; }
@@ -105,9 +74,11 @@ namespace NOTATerminal.ViewModels
         public void OpenUrlCommand(TextArea textArea)
         {
             string url = textArea.Selection.GetText();
-            if (Uri.IsWellFormedUriString(url, UriKind.Absolute)) {
+            if (Uri.IsWellFormedUriString(url, UriKind.Absolute))
+            {
                 Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
-            } else
+            }
+            else
             {
                 StatusText = "Invalid URL";
             }
@@ -215,14 +186,17 @@ namespace NOTATerminal.ViewModels
                 Type type = asm.GetType("ContextItemPlugin.Plugin");
                 MethodInfo entrypoint = type.GetMethod("Handler");
                 if (entrypoint != null)
-                {                    
+                {
                     return (Action<TextArea>)Delegate.CreateDelegate(typeof(Action<TextArea>), entrypoint);
 
-                } else {
+                }
+                else
+                {
                     return null;
                 }
             }
-            catch (Exception ex) { 
+            catch (Exception ex)
+            {
                 Console.WriteLine(ex.Message);
                 return null;
             }
@@ -233,7 +207,8 @@ namespace NOTATerminal.ViewModels
             {
                 return KeyGesture.Parse(rawHotKey);
             }
-            else {
+            else
+            {
                 return null;
             }
         }
@@ -242,7 +217,7 @@ namespace NOTATerminal.ViewModels
             List<MacrosMenuItem> menuItems = new();
             string defaultMenuItemColor = "#D55C5C5C";// Color.Parse("#FF3C453E"); //Color.Parse("#FF5C5C5C");
             string defaultMenuTextColor = "#FF0A0C01";// Color.Parse("#FFFFFBD6"); //Color.Parse("#FF0A0C01");
-            menuItems.Add(new MacrosMenuItem { Header = "Copy", Command = ReactiveCommand.Create<TextArea>(CopyMouseCommand), HotKey=new KeyGesture(Key.C, KeyModifiers.Control), ItemColor = defaultMenuItemColor, TextColor = defaultMenuTextColor });
+            menuItems.Add(new MacrosMenuItem { Header = "Copy", Command = ReactiveCommand.Create<TextArea>(CopyMouseCommand), HotKey = new KeyGesture(Key.C, KeyModifiers.Control), ItemColor = defaultMenuItemColor, TextColor = defaultMenuTextColor });
             menuItems.Add(new MacrosMenuItem { Header = "Cut", Command = ReactiveCommand.Create<TextArea>(CutMouseCommand), HotKey = new KeyGesture(Key.X, KeyModifiers.Control), ItemColor = defaultMenuItemColor, TextColor = defaultMenuTextColor });
             menuItems.Add(new MacrosMenuItem { Header = "Paste", Command = ReactiveCommand.Create<TextArea>(PasteMouseCommand), HotKey = new KeyGesture(Key.V, KeyModifiers.Control), ItemColor = defaultMenuItemColor, TextColor = defaultMenuTextColor });
             menuItems.Add(new MacrosMenuItem { Header = "Select All", Command = ReactiveCommand.Create<TextArea>(SelectAllMouseCommand), HotKey = new KeyGesture(Key.A, KeyModifiers.Control), ItemColor = defaultMenuItemColor, TextColor = defaultMenuTextColor });
@@ -257,9 +232,13 @@ namespace NOTATerminal.ViewModels
                     Action<TextArea> customMethod = ExtractHandler(macro.BinaryExecutable);
                     if (customMethod != null)
                     {
-                        MacrosMenuItem t = new MacrosMenuItem { Header = macro.Name, Command = ReactiveCommand.Create<TextArea>(customMethod), 
-                            HotKey = GetValidatedHotkey(macro.HotKey), 
-                            ItemColor = macro.MenuItemColor, TextColor = macro.MenuTextColor
+                        MacrosMenuItem t = new MacrosMenuItem
+                        {
+                            Header = macro.Name,
+                            Command = ReactiveCommand.Create<TextArea>(customMethod),
+                            HotKey = GetValidatedHotkey(macro.HotKey),
+                            ItemColor = macro.MenuItemColor,
+                            TextColor = macro.MenuTextColor
                         };
                         menuItems.Add(item: t);
                     }
@@ -268,17 +247,9 @@ namespace NOTATerminal.ViewModels
             return new ObservableCollection<MacrosMenuItem>(menuItems);
         }
 
-        public GridTerminalViewModel()
+        public GridTerminalViewModel(string path = "")
         {
             MacrosContextMenu = PopulateMacroMenu();
-        }
-        public GridTerminalViewModel(IStorageFile file)
-        {
-            LoadFileAsync(file.TryGetLocalPath());
-            FileFullPath = file.TryGetLocalPath();
-
-            MacrosContextMenu = PopulateMacroMenu();
-            //UpdateQueries();
         }
     }
 }

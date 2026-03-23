@@ -1,9 +1,6 @@
 ﻿using Avalonia.Controls;
 using Avalonia.Input;
 using NOTATerminal.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace NOTATerminal.Views
 {
@@ -12,7 +9,7 @@ namespace NOTATerminal.Views
         public Terminal()
         {
             InitializeComponent();
-            DataContext = new GridTerminalViewModel();
+            DataContext = new TerminalViewModel();
         }
         private void MouseWheelFontSizer(object? sender, PointerWheelEventArgs e)
         {

@@ -9,7 +9,8 @@
 	    x:DataType="vm:GridTerminalViewModel">
 	<Grid DockPanel.Dock="Top" Grid.Row="2" RowDefinitions="0.9*, 0.1*" ColumnDefinitions="*" HorizontalAlignment="Stretch"
     VerticalAlignment="Stretch">
-		<!--xmlns:console="using:Iciclecreek.Terminal"-->
-		<!--<console:TerminalView></console:TerminalView>-->
+		<Panel>
+			<TextBox/>
+		</Panel>
 	</Grid>
 </UserControl>

@@ -2,8 +2,6 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Platform.Storage;
 using Avalonia.Threading;
-using System;
-using System.IO;
 using NOTATerminal.ViewModels;
 
 namespace NOTATerminal.Views
@@ -14,7 +12,8 @@ namespace NOTATerminal.Views
         {
             Name = "TheHighestWindow";
             InitializeComponent();
-            AddTab();
+            NewTerminal();
+            NewGridTerminal();
         }
         private TabItem GetActiveTab()
         {
@@ -32,13 +31,34 @@ namespace NOTATerminal.Views
             };
             return btn;
         }
-        public void AddTabClick(object sender, RoutedEventArgs args)
+        public void NewTerminalClick(object sender, RoutedEventArgs args)
         {
-            AddTab();
+            NewTerminal();
         }
-        private void AddTab()
+        private void NewTerminal(string folder = "")
         {
             string header = "Terminal " + HighestMultiTab.Items.Count;
+            Terminal content = new Terminal();
+            DockPanel panel = new DockPanel();
+            panel.Children.Add(new Label() { Content = header });
+            Button btn = AddTabDeleteButton();
+            panel.Children.Add(btn);
+            TabItem newItem = new TabItem()
+            {
+                Header = panel,
+                Content = content,
+            };
+            HighestMultiTab.Items.Add(newItem);
+            newItem.IsSelected = true;
+            newItem.Focus();
+        }
+        public void NewGridTerminalClick(object sender, RoutedEventArgs args)
+        {
+            NewGridTerminal();
+        }
+        private void NewGridTerminal(string folder = "")
+        {
+            string header = "Grid Terminal " + HighestMultiTab.Items.Count;
             GridTerminal content = new GridTerminal();
             DockPanel panel = new DockPanel();
             panel.Children.Add(new Label() { Content = header });
@@ -53,61 +73,42 @@ namespace NOTATerminal.Views
             newItem.IsSelected = true;
             newItem.Focus();
         }
+        public async void NewTerminalInFolderClick(object sender, RoutedEventArgs args)
+        {
+            TopLevel topLevel = GetTopLevel(this);
+            var folder = await topLevel.StorageProvider.OpenFolderPickerAsync(new FolderPickerOpenOptions
+            {
+                Title = "Choose folder",
+                AllowMultiple = false
+            });
+            if (folder != null)
+            {
+                await Dispatcher.UIThread.InvokeAsync(() =>
+                {
+                    NewTerminal();
+                });
+            }
+        }
+        public async void NewGridTerminalInFolderClick(object sender, RoutedEventArgs args)
+        {
+            TopLevel topLevel = GetTopLevel(this);
+            var folder = await topLevel.StorageProvider.OpenFolderPickerAsync(new FolderPickerOpenOptions
+            {
+                Title = "Choose folder",
+                AllowMultiple = false
+            });
+            if (folder != null)
+            {
+                await Dispatcher.UIThread.InvokeAsync(() =>
+                {
+                    NewGridTerminal();
+                });
+            }
+        }
         private void MacrosOpenWindow_Clicked(object sender, RoutedEventArgs args)
         {
             MacrosCodeWindow w1 = new MacrosCodeWindow() { DataContext = new MacrosWindowViewModel(), WindowState = WindowState.Maximized };
             w1.Show();
         }
-        //private async void SaveFile_Clicked(object sender, RoutedEventArgs args)
-        //{
-        //    TabItem tab = GetActiveTab();
-        //    GridTerminal? tabWindow = tab.Content as GridTerminal; //getting child GridTerminal
-        //    TabWindowViewModel? tabWindowViewModel = tabWindow.DataContext as TabWindowViewModel;
-        //    if (tabWindowViewModel.FileFullPath == "")
-        //    {
-        //        TopLevel topLevel = GetTopLevel(this);
-        //        FilePickerSaveOptions saveOptions = new FilePickerSaveOptions { Title = "Save new file" };
-        //        IStorageFile file = await topLevel.StorageProvider.SaveFilePickerAsync(saveOptions);
-        //        if (file != null)
-        //        {
-        //            try
-        //            {
-        //                await using (var stream = await file.OpenWriteAsync())
-        //                {
-        //                    using (StreamWriter writer = new StreamWriter(stream))
-        //                    {
-        //                        await writer.WriteAsync(tabWindowViewModel.RawText.Text);
-        //                    }
-        //                }
-
-        //                DockPanel panel = new DockPanel();
-        //                panel.Children.Add(new Label() { Content = file.Name });
-        //                Button btn = AddTabDeleteButton();
-        //                panel.Children.Add(btn);
-        //                tab.Header = panel;
-        //                file.Dispose();
-        //                string createdFilePath = file.TryGetLocalPath();
-        //                tabWindowViewModel.StatusText = "New file saved " + createdFilePath;
-        //                tabWindowViewModel.FileFullPath = createdFilePath;
-        //            }
-        //            catch (Exception e)
-        //            {
-        //                tabWindowViewModel.StatusText = "Exception: New file saving error " + e.ToString();
-        //            }
-        //        }
-        //    }
-        //    else
-        //    {
-        //        try
-        //        {
-        //            File.WriteAllText(tabWindowViewModel.FileFullPath, tabWindowViewModel.RawText.Text);
-        //            tabWindowViewModel.StatusText = "File saved " + tabWindowViewModel.FileFullPath;
-        //        }
-        //        catch (Exception e)
-        //        {
-        //            tabWindowViewModel.StatusText = "Exception: file saving error " + e.ToString();
-        //        }
-        //    }
-        //}
     }
 }
