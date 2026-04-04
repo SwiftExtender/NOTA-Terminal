@@ -10,7 +10,9 @@
 	    x:DataType="vm:TerminalViewModel">
 	<Grid DockPanel.Dock="Top" RowDefinitions="0.9*, 0.1*" ColumnDefinitions="*" HorizontalAlignment="Stretch"
     VerticalAlignment="Stretch">
-		<console:TerminalView Grid.Row="0" x:Name="Term"/>
+		<console:TerminalControl FontFamily="Cascadia Mono"
+                FontSize="14" BufferSize="1000"
+			/>
 		<DockPanel Grid.Row="1" >
 			<SelectableTextBlock/>
 		</DockPanel>

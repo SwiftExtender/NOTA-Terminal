@@ -13,7 +13,7 @@ namespace NOTATerminal.Views
             Name = "TheHighestWindow";
             InitializeComponent();
             NewTerminal();
-            NewGridTerminal();
+            //NewGridTerminal();
         }
         private TabItem GetActiveTab()
         {
