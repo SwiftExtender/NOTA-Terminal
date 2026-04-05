@@ -1,8 +1,37 @@
 <Styles xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:console="using:Iciclecreek.Terminal"
+		>
 	<Styles.Resources>
 		<Thickness x:Key="MenuFlyoutScrollerMargin">0</Thickness>
 	</Styles.Resources>
+	<Style Selector="console|CustomTerminalControl">
+		<Setter Property="Background" Value="Black"/>
+		<Setter Property="Foreground" Value="White"/>
+		<Setter Property="FocusAdorner" Value="{x:Null}"/>
+		<Setter Property="Template">
+			<ControlTemplate>
+				<Grid ColumnDefinitions="*,Auto">
+					<console:CustomTerminalView Name="PART_CustomTerminalView"
+                                       FontFamily="{TemplateBinding FontFamily}"
+                                       FontSize="{TemplateBinding FontSize}"
+                                       FontStyle="{TemplateBinding FontStyle}"
+                                       FontWeight="{TemplateBinding FontWeight}"
+                                       Foreground="{TemplateBinding Foreground}"
+                                       Background="{TemplateBinding Background}"
+                                       SelectionBrush="{TemplateBinding SelectionBrush}"
+                                       Process="{TemplateBinding Process}"
+                                       Args="{TemplateBinding Args}"
+                                       Options="{TemplateBinding Options}"/>
+					<!-- Scrollbar -->
+					<ScrollBar Name="PART_ScrollBar"
+                              Grid.Column="1"
+                              Orientation="Vertical"
+                              AllowAutoHide="False"/>
+				</Grid>
+			</ControlTemplate>
+		</Setter>
+	</Style>
 	<Style Selector="ScrollViewer.TabScroll /template/ ScrollBar:horizontal">
 		<Setter Property="Background" Value="Blue"/>
 		<Setter Property="MaxHeight" Value="8"/>

@@ -1,15 +1,21 @@
 ﻿using Avalonia.Controls;
 using Avalonia.Input;
 using NOTATerminal.ViewModels;
+//using NOTATerminal.CustomTerminal;
+using Iciclecreek.Terminal;
+using Avalonia.Controls.Templates;
 
 namespace NOTATerminal.Views
 {
-    public partial class Terminal : UserControl
+    public partial class TerminalCustomControl : UserControl
     {
-        public Terminal()
+        public TerminalCustomControl()
         {
             InitializeComponent();
             DataContext = new TerminalViewModel();
+            TabTerminal.Loaded += (s, e) =>
+            {
+            };
         }
         private void MouseWheelFontSizer(object? sender, PointerWheelEventArgs e)
         {

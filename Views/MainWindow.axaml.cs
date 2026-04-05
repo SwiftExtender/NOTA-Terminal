@@ -13,7 +13,6 @@ namespace NOTATerminal.Views
             Name = "TheHighestWindow";
             InitializeComponent();
             NewTerminal();
-            //NewGridTerminal();
         }
         private TabItem GetActiveTab()
         {
@@ -38,7 +37,7 @@ namespace NOTATerminal.Views
         private void NewTerminal(string folder = "")
         {
             string header = "Terminal " + HighestMultiTab.Items.Count;
-            Terminal content = new Terminal();
+            TerminalCustomControl content = new TerminalCustomControl();
             DockPanel panel = new DockPanel();
             panel.Children.Add(new Label() { Content = header });
             Button btn = AddTabDeleteButton();

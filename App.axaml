@@ -11,5 +11,6 @@
 		<StyleInclude Source="avares://Avalonia.Controls.TreeDataGrid/Themes/Fluent.axaml"/>
 		<StyleInclude Source="avares://Avalonia.Controls.ColorPicker/Themes/Fluent/Fluent.xaml"/>
 		<StyleInclude Source="avares://NOTATerminal/Views/Styles.axaml"/>
+		<StyleInclude Source="avares://Iciclecreek.Avalonia.Terminal/Themes/Generic.axaml"/>
     </Application.Styles>
 </Application>

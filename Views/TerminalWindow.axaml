@@ -6,13 +6,12 @@
         mc:Ignorable="d"
 	    xmlns:console="using:Iciclecreek.Terminal"
 		xmlns:bh="using:NOTATerminal.Behaviors"
-        x:Class="NOTATerminal.Views.Terminal"
+        x:Class="NOTATerminal.Views.TerminalCustomControl"
 	    x:DataType="vm:TerminalViewModel">
 	<Grid DockPanel.Dock="Top" RowDefinitions="0.9*, 0.1*" ColumnDefinitions="*" HorizontalAlignment="Stretch"
     VerticalAlignment="Stretch">
-		<console:TerminalControl FontFamily="Cascadia Mono"
-                FontSize="14" BufferSize="1000"
-			/>
+		<console:CustomTerminalControl x:Name="TabTerminal" FontFamily="Cascadia Mono"
+                FontSize="14" BufferSize="1000" Unloaded=""/>
 		<DockPanel Grid.Row="1" >
 			<SelectableTextBlock/>
 		</DockPanel>
