@@ -28,7 +28,7 @@ namespace Iciclecreek.Terminal
         private double _charHeight;
         private int _bufferSize = 1000;
         private bool _isAlternateBuffer;
-
+        private bool _isLaunched = false;
         // Process management
         private IPtyConnection? _ptyConnection;
         private CancellationTokenSource? _processCts;
@@ -669,7 +669,7 @@ namespace Iciclecreek.Terminal
         {
             if (!string.IsNullOrEmpty(Process))
             {
-                LaunchProcess();
+                if (!_isLaunched) LaunchProcess();
             }
 
             // Start cursor blinking if enabled
@@ -677,6 +677,7 @@ namespace Iciclecreek.Terminal
             {
                 _cursorBlinkTimer.Start();
             }
+            _isLaunched = true;
         }
 
         private void OnUnloaded(object? sender, RoutedEventArgs e)
@@ -1585,7 +1586,7 @@ namespace Iciclecreek.Terminal
 
         private async void LaunchProcess()
         {
-            CleanupProcess();
+            //CleanupProcess();
 
             try
             {
