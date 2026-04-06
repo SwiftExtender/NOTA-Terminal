@@ -25,6 +25,7 @@ namespace NOTATerminal.Views
             {
                 if (sender is Button btn && btn.Parent is DockPanel dckPanel && dckPanel.Parent is TabItem titem)
                 {
+                    
                     HighestMultiTab.Items.Remove(titem);
                 }
             };
@@ -46,6 +47,10 @@ namespace NOTATerminal.Views
             {
                 Header = panel,
                 Content = content,
+            };
+            newItem.DetachedFromLogicalTree += (sender, e) =>
+            {
+                if (sender is TabItem titem && titem.Content is TerminalCustomControl customTerminal) customTerminal.Closing();
             };
             HighestMultiTab.Items.Add(newItem);
             newItem.IsSelected = true;
@@ -80,11 +85,10 @@ namespace NOTATerminal.Views
                 Title = "Choose folder",
                 AllowMultiple = false
             });
-            if (folder != null)
+            if (folder.Count == 1)
             {
                 await Dispatcher.UIThread.InvokeAsync(() =>
                 {
-                    //var t = folder.TryGetLocalPath();
                     NewTerminal(folder[0].TryGetLocalPath());
                 });
             }

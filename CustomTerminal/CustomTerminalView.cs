@@ -482,7 +482,11 @@ namespace Iciclecreek.Terminal
 
         public void WaitForExit(int ms) => _ptyConnection!.WaitForExit(ms);
 
-        public void Kill() => _ptyConnection!.Kill();
+        public void Kill() {
+            OnClose();
+            //_ptyConnection!.Kill();
+        }
+            
 
         /// <summary>
         /// Pastes text from the clipboard into the terminal.
@@ -685,7 +689,7 @@ namespace Iciclecreek.Terminal
         {
             _cursorBlinkTimer.Stop();
         }
-        private void OnClose(object? sender, RoutedEventArgs e)
+        private void OnClose()
         {
             _cursorBlinkTimer.Stop();
             _terminal.DataReceived -= OnTerminalDataReceived;
@@ -1728,9 +1732,9 @@ namespace Iciclecreek.Terminal
                     _ptyConnection.Kill();
                     _ptyConnection.Dispose();
                 }
-                catch
+                catch (Exception e)
                 {
-                    // Ignore cleanup errors
+                    Console.WriteLine(e.Message);
                 }
                 finally
                 {

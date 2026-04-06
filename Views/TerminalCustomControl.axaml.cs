@@ -1,9 +1,6 @@
 ﻿using Avalonia.Controls;
 using Avalonia.Input;
 using NOTATerminal.ViewModels;
-//using NOTATerminal.CustomTerminal;
-using Iciclecreek.Terminal;
-using Avalonia.Controls.Templates;
 
 namespace NOTATerminal.Views
 {
@@ -43,6 +40,10 @@ namespace NOTATerminal.Views
                     FontSize = FontSize > 9 ? FontSize - 1 : 9;
                 }
             }
+        }
+        public void Closing()
+        {
+            TabTerminal.Kill();
         }
     }
 }
