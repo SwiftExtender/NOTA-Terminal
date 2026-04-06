@@ -19,22 +19,11 @@
 		>
 	<Border BorderThickness="1.5" BorderBrush="#D2B1A38E" IsVisible="True">
 	<Grid RowDefinitions="0,50,*" ColumnDefinitions="*">
-		<Label Margin="5,5,5,0" Grid.Row="1" BorderBrush="Wheat">TableJson</Label>
+		<Label Margin="5,5,5,0" Grid.Row="1" BorderBrush="Wheat">NOTATerminal</Label>
 		<StackPanel Grid.Row="1" Margin="10,22,10,0" Orientation="Horizontal">
 			<Button Content="New Terminal" Classes="Ribbon" Background="#F92684D7" Click="NewTerminalClick" HotKey="Ctrl+O"/>
 			<Button Content="Terminal in Folder..." Classes="Ribbon" Background="#F92684D7" Click="NewTerminalInFolderClick" HotKey="Ctrl+O"/>
-			<!--<SplitButton Content="New GridTerminal" Classes="Ribbon" Background="#F92684D7" Click="NewGridTerminalClick" HotKey="Ctrl+O+1">
-				<SplitButton.Flyout>
-					<MenuFlyout Placement="RightEdgeAlignedTop">
-						<MenuItem Header="GridTerminal in Folder"
-								  Click="NewGridTerminalInFolderClick"/>
-					</MenuFlyout>
-				</SplitButton.Flyout>
-			</SplitButton>-->
-			<!--<Button Content="Save" Classes="Ribbon" Background="#FD429118" Click="" HotKey="Ctrl+S"/>-->
-			<Button Content="Scripts" Classes="Ribbon" Background="#D1CB1DD9" Click="MacrosOpenWindow_Clicked" HotKey="Ctrl+Q"/>
-			<!--<Label Margin="15,15,5,0" BorderBrush="Wheat">Font Size</Label>-->
-			<!--<ComboBox ItemsSource="{Binding EditorFontSizes}"  Height="30" Width="70" Margin="0,10,0,0"></ComboBox>-->
+			<Button Content="Settings" Classes="Ribbon" Background="#D1CB1DD9" Click="SettingsOpenWindow_Clicked" HotKey="Ctrl+Q"/>
 			<ToggleButton Margin="170,10,10,10" IsChecked="{Binding IsPinnedWindow, Mode = TwoWay}" IsDefault="False" Width="95" Height="30" Classes="Pin"/>
 		</StackPanel>
 		<TabControl Grid.Row="2" x:Name="HighestMultiTab">

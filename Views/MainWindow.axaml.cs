@@ -1,17 +1,30 @@
+using System;
+using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Media;
+using ReactiveUI;
 using Avalonia.Interactivity;
-using Avalonia.Platform.Storage;
 using Avalonia.Threading;
+using Avalonia.Platform.Storage;
 using NOTATerminal.ViewModels;
 
 namespace NOTATerminal.Views
 {
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, IActivatableView
     {
         public MainWindow()
         {
             Name = "TheHighestWindow";
             InitializeComponent();
+            this.WhenActivated(disposables =>
+            {
+                (Application.Current as App).Settings.
+                WhenAnyValue(x => x.MainWindowColor).
+                Subscribe<string>(onNext: s =>
+                {
+                    this.Background = Brush.Parse(s);
+                });
+            });
             NewTerminal();
         }
         private TabItem GetActiveTab()
@@ -25,7 +38,7 @@ namespace NOTATerminal.Views
             {
                 if (sender is Button btn && btn.Parent is DockPanel dckPanel && dckPanel.Parent is TabItem titem)
                 {
-                    
+
                     HighestMultiTab.Items.Remove(titem);
                 }
             };
@@ -109,9 +122,9 @@ namespace NOTATerminal.Views
         //        });
         //    }
         //}
-        private void MacrosOpenWindow_Clicked(object sender, RoutedEventArgs args)
+        private void SettingsOpenWindow_Clicked(object sender, RoutedEventArgs args)
         {
-            MacrosCodeWindow w1 = new MacrosCodeWindow() { DataContext = new MacrosWindowViewModel(), WindowState = WindowState.Maximized };
+            SettingsWindow w1 = new SettingsWindow() { DataContext = new SettingsWindowViewModel(), WindowState = WindowState.Maximized };
             w1.Show();
         }
     }

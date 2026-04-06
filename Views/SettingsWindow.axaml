@@ -1,0 +1,33 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:NOTATerminal.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:convert="clr-namespace:Avalonia.Data.Converters;assembly=Avalonia.Base"
+		xmlns:controlconvert="using:NOTATerminal.Converters"
+		x:Class="NOTATerminal.Views.SettingsWindow"
+		x:DataType="vm:SettingsWindowViewModel"
+        mc:Ignorable="d"
+		WindowState="Maximized"
+		Title="Settings"
+		Background="{Binding SettingsWindowColor}"
+		>
+	<Window.Resources>
+		<controlconvert:ColorSetConverter x:Key="ColorSetConverter"/>
+	</Window.Resources>
+	<StackPanel>
+		<Button Content="Save Settings" Command="{Binding SaveCommand}"/>
+		<TextBlock Text=" Default tab font size"/>
+		<TextBox Text="{Binding NewTabFontSize}"/>
+		<Grid ColumnDefinitions="*,*" RowDefinitions="*,*,*,*" ShowGridLines="True" >
+			<TextBlock Grid.Row="0" Grid.Column="0" Text="Main window color"/>
+			<ColorPicker Grid.Row="0" Grid.Column="1" Color="{Binding MainWindowColor, Converter={StaticResource ColorSetConverter}, Mode=TwoWay}"/>
+			<TextBlock Grid.Row="1" Grid.Column="0" Text="Terminal background color"/>
+			<ColorPicker Grid.Row="1" Grid.Column="1" Color="{Binding TabWindowColor, Converter={StaticResource ColorSetConverter}, Mode=TwoWay}"/>
+			<TextBlock Grid.Row="2" Grid.Column="0" Text="Terminal text color"/>
+			<ColorPicker Grid.Row="2" Grid.Column="1" Color="{Binding TabWindowTextColor, Converter={StaticResource ColorSetConverter}, Mode=TwoWay}"/>
+			<TextBlock Grid.Row="3" Grid.Column="0" Text="Settings window color"/>
+			<ColorPicker Grid.Row="3" Grid.Column="1" Color="{Binding SettingsWindowColor, Converter={StaticResource ColorSetConverter}, Mode=TwoWay}"/>
+		</Grid>
+	</StackPanel>
+</Window>

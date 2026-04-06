@@ -1,17 +1,20 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using NOTATerminal.Models;
+using NOTATerminal.Services;
+using NOTATerminal.ViewModels;
+using NOTATerminal.Views;
 using System;
 using System.IO;
 using System.Runtime;
-using NOTATerminal.Models;
-using NOTATerminal.ViewModels;
-using NOTATerminal.Views;
 
 namespace NOTATerminal
 {
     public partial class App : Application
     {
+        public AppSettings Settings;
+        public SettingsService SettingsService;
         public override void Initialize()
         {
             AvaloniaXamlLoader.Load(this);
@@ -25,7 +28,9 @@ namespace NOTATerminal
             AppContext.SetData("GCAllowVeryLargeObjects", true);
             var tempdb = new HelpContext();
             tempdb.Database.EnsureCreated();
-            Directory.CreateDirectory("imports");
+            SettingsService = new SettingsService();
+            SettingsService.CreateDefaultConfig();
+            Settings = SettingsService.Load();
             this.AttachDevTools();
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {

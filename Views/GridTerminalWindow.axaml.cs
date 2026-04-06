@@ -1,10 +1,11 @@
 using Avalonia.Controls;
 using Avalonia.Input;
 using NOTATerminal.ViewModels;
+using ReactiveUI;
 
 namespace NOTATerminal.Views
 {
-    public partial class GridTerminal : UserControl
+    public partial class GridTerminal : UserControl, IActivatableView
     {
         public GridTerminal()
         {

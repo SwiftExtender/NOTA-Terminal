@@ -1,16 +1,34 @@
-﻿using Avalonia.Controls;
+﻿using System;
+using ReactiveUI;
+using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Input;
+using Avalonia.Media;
 using NOTATerminal.ViewModels;
 
 namespace NOTATerminal.Views
 {
-    public partial class TerminalCustomControl : UserControl
+    public partial class TerminalCustomControl : UserControl, IActivatableView
     {
         public TerminalCustomControl(string cwd = "")
         {
             InitializeComponent();
             DataContext = new TerminalViewModel();
-            
+            this.WhenActivated(disposables =>
+            {
+                (Application.Current as App).Settings.
+                WhenAnyValue(x => x.TabWindowColor).
+                Subscribe<string>(onNext: s =>
+                {
+                    TabTerminal.Background = Brush.Parse(s);
+                });
+                (Application.Current as App).
+                Settings.WhenAnyValue(x => x.TabWindowTextColor).
+                Subscribe<string>(onNext: s =>
+                {
+                    TabTerminal.Foreground = Brush.Parse(s);
+                });
+            });
             this.Loaded += (s, e) =>
             {
                 if (cwd != "")
