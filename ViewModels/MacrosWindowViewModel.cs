@@ -58,8 +58,8 @@ namespace NOTATerminal.ViewModels
             {
                 using (var DataSource = new HelpContext())
                 {
-                    DataSource.MacrosTable.Attach(remHint);
-                    DataSource.MacrosTable.Remove(remHint);
+                    DataSource.ScriptsTable.Attach(remHint);
+                    DataSource.ScriptsTable.Remove(remHint);
                     DataSource.SaveChanges();
                 }
             }
@@ -70,8 +70,8 @@ namespace NOTATerminal.ViewModels
             {
                 using (var DataSource = new HelpContext())
                 {
-                    DataSource.MacrosTable.Attach(updateHint);
-                    DataSource.MacrosTable.Update(updateHint);
+                    DataSource.ScriptsTable.Attach(updateHint);
+                    DataSource.ScriptsTable.Update(updateHint);
                     DataSource.SaveChanges();
                 }
             }
@@ -79,8 +79,8 @@ namespace NOTATerminal.ViewModels
             {
                 using (var DataSource = new HelpContext())
                 {
-                    DataSource.MacrosTable.Attach(updateHint);
-                    DataSource.MacrosTable.Add(updateHint);
+                    DataSource.ScriptsTable.Attach(updateHint);
+                    DataSource.ScriptsTable.Add(updateHint);
                     DataSource.SaveChanges();
                 }
                 updateHint.IsSaved = true;
@@ -216,8 +216,8 @@ namespace NOTATerminal.ViewModels
                 {
                     using (var DataSource = new HelpContext())
                     {
-                        DataSource.MacrosTable.Attach(SelectedRow);
-                        DataSource.MacrosTable.Update(SelectedRow);
+                        DataSource.ScriptsTable.Attach(SelectedRow);
+                        DataSource.ScriptsTable.Update(SelectedRow);
                         DataSource.SaveChanges();
                     }
                 }
@@ -226,8 +226,8 @@ namespace NOTATerminal.ViewModels
                     using (var DataSource = new HelpContext())
                     {
                         SelectedRow.IsSaved = true;
-                        DataSource.MacrosTable.Attach(SelectedRow);
-                        DataSource.MacrosTable.Add(SelectedRow);
+                        DataSource.ScriptsTable.Attach(SelectedRow);
+                        DataSource.ScriptsTable.Add(SelectedRow);
                         DataSource.SaveChanges();
                     }
                 }
@@ -261,7 +261,7 @@ namespace NOTATerminal.ViewModels
             AddMacrosCommand = ReactiveCommand.Create(AddMacros);
             using (var DataSource = new HelpContext())
             {
-                List<Macros> selectedMacros = DataSource.MacrosTable.ToList();
+                List<Macros> selectedMacros = DataSource.ScriptsTable.ToList();
                 MacrosGridData = new ObservableCollection<Macros>(selectedMacros);
                 SetRefsGrid();
             }

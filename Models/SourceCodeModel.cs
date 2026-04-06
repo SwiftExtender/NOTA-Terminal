@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NOTATerminal.Models
@@ -40,20 +38,6 @@ namespace NOTATerminal.Models
             Id = id;
             IsActive = isActive;
             Name = name;
-        }
-    }
-    public class HelpContext : DbContext
-    {
-        public DbSet<Macros>? MacrosTable { get; set; }
-        //public DbSet<JsonQuery>? JsonQueryTable { get; set; }
-        private string DbPath { get; }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlite($"Data Source={DbPath}");
-        }
-        public HelpContext()
-        {
-            DbPath = System.IO.Path.Join(AppDomain.CurrentDomain.BaseDirectory, "scripts.db");
         }
     }
 }

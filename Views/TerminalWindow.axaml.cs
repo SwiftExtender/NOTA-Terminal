@@ -9,12 +9,17 @@ namespace NOTATerminal.Views
 {
     public partial class TerminalCustomControl : UserControl
     {
-        public TerminalCustomControl()
+        public TerminalCustomControl(string cwd = "")
         {
             InitializeComponent();
             DataContext = new TerminalViewModel();
+            
             this.Loaded += (s, e) =>
             {
+                if (cwd != "")
+                {
+                    TabTerminal.Terminal.CurrentDirectory = cwd;
+                }
                 TabTerminal.Focus();
             };
         }

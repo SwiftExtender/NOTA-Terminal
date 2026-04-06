@@ -226,7 +226,7 @@ namespace NOTATerminal.ViewModels
 
             using (var DataSource = new HelpContext())
             {
-                List<Macros> selectedMacros = DataSource.MacrosTable.Where(i => i.IsActive == true).Where(i => i.BinaryExecutable != null).ToList();
+                List<Macros> selectedMacros = DataSource.ScriptsTable.Where(i => i.IsActive == true).Where(i => i.BinaryExecutable != null).ToList();
                 foreach (Macros macro in selectedMacros)
                 {
                     Action<TextArea> customMethod = ExtractHandler(macro.BinaryExecutable);
