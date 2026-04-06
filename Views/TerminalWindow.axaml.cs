@@ -13,8 +13,9 @@ namespace NOTATerminal.Views
         {
             InitializeComponent();
             DataContext = new TerminalViewModel();
-            TabTerminal.Loaded += (s, e) =>
+            this.Loaded += (s, e) =>
             {
+                TabTerminal.Focus();
             };
         }
         private void MouseWheelFontSizer(object? sender, PointerWheelEventArgs e)

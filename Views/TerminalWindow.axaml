@@ -11,7 +11,7 @@
 	<Grid DockPanel.Dock="Top" RowDefinitions="0.9*, 0.1*" ColumnDefinitions="*" HorizontalAlignment="Stretch"
     VerticalAlignment="Stretch">
 		<console:CustomTerminalControl x:Name="TabTerminal" FontFamily="Cascadia Mono"
-                FontSize="14" BufferSize="1000" Unloaded=""/>
+                FontSize="14" BufferSize="100000" Unloaded=""/>
 		<DockPanel Grid.Row="1" >
 			<SelectableTextBlock/>
 		</DockPanel>

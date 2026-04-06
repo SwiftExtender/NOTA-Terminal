@@ -26,7 +26,7 @@ namespace Iciclecreek.Terminal
         private FormattedText _measureText;
         private double _charWidth;
         private double _charHeight;
-        private int _bufferSize = 1000;
+        private int _bufferSize = 100000;
         private bool _isAlternateBuffer;
         private bool _isLaunched = false;
         // Process management
@@ -44,7 +44,7 @@ namespace Iciclecreek.Terminal
 
         // Unique identifier for this terminal instance (for debugging)
         private readonly Guid _instanceId = Guid.NewGuid();
-        //protected override Type StyleKeyOverride => typeof(TerminalView);
+
         private sealed record CachedTextRun(FormattedText Text, int StartX, int CellCount, IBrush Background);
 
         public static readonly DirectProperty<CustomTerminalView, bool> IsAlternateBufferProperty =
@@ -381,6 +381,7 @@ namespace Iciclecreek.Terminal
             Focusable = true;
             Loaded += OnLoaded;
             Unloaded += OnUnloaded;
+            
         }
 
         protected override void OnInitialized()
@@ -683,23 +684,26 @@ namespace Iciclecreek.Terminal
         private void OnUnloaded(object? sender, RoutedEventArgs e)
         {
             _cursorBlinkTimer.Stop();
-            //_terminal.DataReceived -= OnTerminalDataReceived;
-            //_terminal.BufferChanged -= OnTerminalBufferChanged;
-            //_terminal.CursorStyleChanged -= OnTerminalCursorStyleChanged;
-            //_terminal.TitleChanged -= OnTerminalTitleChanged;
-            //_terminal.WindowMoved -= OnTerminalWindowMoved;
-            //_terminal.WindowResized -= OnTerminalWindowResized;
-            //_terminal.WindowMinimized -= OnTerminalWindowMinimized;
-            //_terminal.WindowMaximized -= OnTerminalWindowMaximized;
-            //_terminal.WindowRestored -= OnTerminalWindowRestored;
-            //_terminal.WindowRaised -= OnTerminalWindowRaised;
-            //_terminal.WindowLowered -= OnTerminalWindowLowered;
-            //_terminal.WindowFullscreened -= OnTerminalWindowFullscreened;
-            //_terminal.BellRang -= OnTerminalBellRang;
-            //_terminal.WindowInfoRequested -= OnTerminalWindowInfoRequested;
-            //CleanupProcess();
         }
-
+        private void OnClose(object? sender, RoutedEventArgs e)
+        {
+            _cursorBlinkTimer.Stop();
+            _terminal.DataReceived -= OnTerminalDataReceived;
+            _terminal.BufferChanged -= OnTerminalBufferChanged;
+            _terminal.CursorStyleChanged -= OnTerminalCursorStyleChanged;
+            _terminal.TitleChanged -= OnTerminalTitleChanged;
+            _terminal.WindowMoved -= OnTerminalWindowMoved;
+            _terminal.WindowResized -= OnTerminalWindowResized;
+            _terminal.WindowMinimized -= OnTerminalWindowMinimized;
+            _terminal.WindowMaximized -= OnTerminalWindowMaximized;
+            _terminal.WindowRestored -= OnTerminalWindowRestored;
+            _terminal.WindowRaised -= OnTerminalWindowRaised;
+            _terminal.WindowLowered -= OnTerminalWindowLowered;
+            _terminal.WindowFullscreened -= OnTerminalWindowFullscreened;
+            _terminal.BellRang -= OnTerminalBellRang;
+            _terminal.WindowInfoRequested -= OnTerminalWindowInfoRequested;
+            CleanupProcess();
+        }
         private void OnCursorBlinkTick(object? sender, EventArgs e)
         {
             if (CursorBlink && IsFocused)
