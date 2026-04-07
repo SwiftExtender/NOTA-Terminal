@@ -18,13 +18,14 @@
 		Topmost="{Binding IsPinnedWindow}"
 		>
 	<Border BorderThickness="1.5" BorderBrush="#D2B1A38E" IsVisible="True">
-	<Grid RowDefinitions="0,50,*" ColumnDefinitions="*">
+	<Grid RowDefinitions="0,50,*,10" ColumnDefinitions="*">
 		<Label Margin="5,5,5,0" Grid.Row="1" BorderBrush="Wheat">NOTATerminal</Label>
 		<StackPanel Grid.Row="1" Margin="10,22,10,0" Orientation="Horizontal">
 			<Button Content="New Terminal" Classes="Ribbon" Background="#F92684D7" Click="NewTerminalClick" HotKey="Ctrl+O"/>
 			<Button Content="Terminal in Folder..." Classes="Ribbon" Background="#F92684D7" Click="NewTerminalInFolderClick" HotKey="Ctrl+O"/>
 			<Button Content="Settings" Classes="Ribbon" Background="#D1CB1DD9" Click="SettingsOpenWindow_Clicked" HotKey="Ctrl+Q"/>
 			<ToggleButton Margin="170,10,10,10" IsChecked="{Binding IsPinnedWindow, Mode = TwoWay}" IsDefault="False" Width="95" Height="30" Classes="Pin"/>
+			<AutoCompleteBox ItemsSource="{Binding FavoriteCommandMenu}"></AutoCompleteBox>
 		</StackPanel>
 		<TabControl Grid.Row="2" x:Name="HighestMultiTab">
 			<!--ItemsSource="{Binding Tabs}"-->

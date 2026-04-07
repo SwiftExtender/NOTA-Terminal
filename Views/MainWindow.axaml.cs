@@ -12,6 +12,7 @@ namespace NOTATerminal.Views
 {
     public partial class MainWindow : Window, IActivatableView
     {
+        private SettingsWindow settingsWindow;
         public MainWindow()
         {
             Name = "TheHighestWindow";
@@ -124,8 +125,16 @@ namespace NOTATerminal.Views
         //}
         private void SettingsOpenWindow_Clicked(object sender, RoutedEventArgs args)
         {
-            SettingsWindow w1 = new SettingsWindow() { DataContext = new SettingsWindowViewModel(), WindowState = WindowState.Maximized };
-            w1.Show();
+            if (settingsWindow != null)
+            { 
+                settingsWindow.Activate();
+            } else
+            {
+                settingsWindow = new SettingsWindow() { DataContext = new SettingsWindowViewModel(), WindowState = WindowState.Maximized };
+                settingsWindow.Closed += (s, e) => settingsWindow = null;
+                settingsWindow.Show();
+            }
+                
         }
     }
 }
