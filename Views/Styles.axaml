@@ -5,7 +5,7 @@
 	<Styles.Resources>
 		<Thickness x:Key="MenuFlyoutScrollerMargin">0</Thickness>
 	</Styles.Resources>
-	<Style Selector="console|CustomTerminalControl">
+	<!--<Style Selector="console|CustomTerminalControl">
 		<Setter Property="Background" Value="Black"/>
 		<Setter Property="Foreground" Value="White"/>
 		<Setter Property="FocusAdorner" Value="{x:Null}"/>
@@ -23,7 +23,7 @@
                                        Process="{TemplateBinding Process}"
                                        Args="{TemplateBinding Args}"
                                        Options="{TemplateBinding Options}"/>
-					<!-- Scrollbar -->
+					 Scrollbar 
 					<ScrollBar Name="PART_ScrollBar"
                               Grid.Column="1"
                               Orientation="Vertical"
@@ -31,7 +31,7 @@
 				</Grid>
 			</ControlTemplate>
 		</Setter>
-	</Style>
+	</Style>-->
 	<Style Selector="ScrollViewer.TabScroll /template/ ScrollBar:horizontal">
 		<Setter Property="Background" Value="Blue"/>
 		<Setter Property="MaxHeight" Value="8"/>
@@ -99,7 +99,7 @@
 		</Style>
 	</Style>
 	<Style Selector="ToggleButton:pointerover /template/ ContentPresenter#PART_ContentPresenter">
-		<!--<Setter Property="Background" Value="{Binding $parent[ToggleButton].Background}"></Setter>-->
+		<Setter Property="Background" Value="{Binding $parent[ToggleButton].Background}"></Setter>
 		<Setter Property="Foreground" Value="{Binding $parent[ToggleButton].Foreground}"></Setter>
 		<Setter Property="BorderBrush" Value="Wheat"></Setter>
 	</Style>
@@ -133,14 +133,14 @@
 	<Style Selector="TabItem:selected:pointerover /template/ Border#PART_LayoutRoot">
 		<Setter Property="TextElement.Foreground" Value="#F3F5AE2A" />
 	</Style>
-	<!--<Style Selector="DataGridCell">
+	<Style Selector="DataGridCell">
 		<Setter Property="Background" Value=""/>
 		<Setter Property="Foreground" Value=""/>
-	</Style>-->
-	<!--<Style Selector="CheckBox:checked">
+	</Style>
+	<Style Selector="CheckBox:checked">
 		<Setter Property="Background" Value="Yellow"/>
 		<Setter Property="Foreground" Value="AliceBlue"/>
-	</Style>-->
+	</Style>
 	<Style Selector="CheckBox:checked /template/ Path#CheckGlyph">
 		<Setter Property="Fill" Value="Yellow"/>
 	</Style>
@@ -150,12 +150,10 @@
 	<Style Selector="DataGridRow:invalid">
 		<Setter Property="Background" Value="Orange"/>
 	</Style>
-	<!--  Pressed state  -->
 	<!--<Style Selector="^:pressed /template/ Border#PART_LayoutRoot">
 		<Setter Property="TextElement.Foreground" Value="{DynamicResource TabItemHeaderForegroundUnselectedPressed}" />
 	</Style>-->
-
-	<!--  Selected Pressed state  -->
+  
 	<!--<Style Selector="^:selected:pressed /template/ Border#PART_LayoutRoot">
 		<Setter Property="Background" Value="{DynamicResource TabItemHeaderBackgroundSelectedPressed}" />
 		<Setter Property="TextElement.Foreground" Value="{DynamicResource TabItemHeaderForegroundSelectedPressed}" />

@@ -29,14 +29,16 @@ namespace NOTATerminal.Views
                     TabTerminal.Foreground = Brush.Parse(s);
                 });
             });
-            this.Loaded += (s, e) =>
-            {
-                if (cwd != "")
-                {
-                    TabTerminal.Terminal.CurrentDirectory = cwd;
-                }
-                TabTerminal.Focus();
-            };
+            if (cwd != "") TabTerminal.StartingDirectory = cwd;
+            TabTerminal.Focus();
+            //this.Loaded += (s, e) =>
+            //{
+            //    if (cwd != "")
+            //    {
+            //        TabTerminal.Terminal.CurrentDirectory = cwd;
+            //    }
+            //    TabTerminal.Focus();
+            //};
         }
         private void MouseWheelFontSizer(object? sender, PointerWheelEventArgs e)
         {

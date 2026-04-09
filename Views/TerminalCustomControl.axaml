@@ -11,7 +11,7 @@
 	    x:Name="TerminalWindow">
 	<Grid DockPanel.Dock="Top" RowDefinitions="0.9*, 0.1*" ColumnDefinitions="*" HorizontalAlignment="Stretch"
     VerticalAlignment="Stretch">
-		<console:CustomTerminalControl Grid.Row="0" x:Name="TabTerminal" FontFamily="Cascadia Mono"
+		<console:TerminalControl Grid.Row="0" x:Name="TabTerminal" FontFamily="Cascadia Mono"
                 FontSize="14" BufferSize="100000" Unloaded=""/>
 		<TextBox Grid.Row="1" Watermark="Command"></TextBox>
 	</Grid>
