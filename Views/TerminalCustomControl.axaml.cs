@@ -31,14 +31,10 @@ namespace NOTATerminal.Views
             });
             if (cwd != "") TabTerminal.StartingDirectory = cwd;
             TabTerminal.Focus();
-            //this.Loaded += (s, e) =>
-            //{
-            //    if (cwd != "")
-            //    {
-            //        TabTerminal.Terminal.CurrentDirectory = cwd;
-            //    }
-            //    TabTerminal.Focus();
-            //};
+            this.Loaded += (s, e) =>
+            {
+                TabTerminal.Focus();
+            };
         }
         private void MouseWheelFontSizer(object? sender, PointerWheelEventArgs e)
         {
